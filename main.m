@@ -1,7 +1,7 @@
 clear all
 
 import py.pygellan.magellan_data.MagellanDataset 
-data_path='/home/watson/CSUX1/Kaneko/20200813/NA0.8x20_16bit_long_exp2_4_4';
+data_path='D:\Shintaku\20200901\nishikawa_beads9_10';
 sigma=80;%imflatfield parameter
 
 
@@ -26,10 +26,10 @@ end
 
 [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
 
-[stitch_405,im_info]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_405.tiff');
-[stitch_488,~]=zscan_focused_image(magellan,channel(2),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,0,'stitch_488.tiff');
-[stitch_532,~]=zscan_focused_image(magellan,channel(3),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,0,'stitch_532.tiff');
-[stitch_bf,~]=zscan_focused_image(magellan,channel(4),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,0,'stitch_bf.tiff');
+%[stitch_405,im_info]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_405.tiff');
+[stitch_488,~]=zscan_focused_image(magellan,channel(2),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_488.tiff');
+[stitch_532,~]=zscan_focused_image(magellan,channel(3),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_532.tiff');
+[stitch_bf,~]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_bf.tiff');
 
 
 

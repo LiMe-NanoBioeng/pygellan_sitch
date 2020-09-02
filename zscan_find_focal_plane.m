@@ -1,5 +1,5 @@
 function [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel,col,row)
-addpath '/home/watson/public/shintaku/github/image-preprocess-pygellan'
+
 ix=int16(zeros(col*row,1));
 iy=int16(zeros(col*row,1));
 iz=int16(zeros(col*row,1));
