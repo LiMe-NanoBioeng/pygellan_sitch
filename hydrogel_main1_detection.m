@@ -4,6 +4,8 @@ experiment=[];
 cells=[];
 start_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 data_path=parameter.data_path;
+
+
 fcsfile=parameter.fcsname;
 %rawBeadsfilename=[data_path '/9_R6G6.fcs'];
 rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
