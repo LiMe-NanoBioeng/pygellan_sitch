@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="3756483336" file="C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\lab\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>pygellan_analysis</param.appname>
     <param.icon />
     <param.icons />
@@ -80,14 +80,18 @@
       <file>${PROJECT_ROOT}\pygellan_stitch_hydrogel.mlapp</file>
     </fileset.main>
     <fileset.resources>
+      <file>${PROJECT_ROOT}\compute_distance_matrix.m</file>
       <file>${PROJECT_ROOT}\flowjo_create_fcs_metadata.m</file>
       <file>${PROJECT_ROOT}\flowjo_export_data2fcs.m</file>
       <file>${PROJECT_ROOT}\fmeasure.m</file>
+      <file>${PROJECT_ROOT}\frame_create_sub_image.m</file>
       <file>${PROJECT_ROOT}\frame_detect_hydrogel.m</file>
       <file>${PROJECT_ROOT}\frame_measure_background_hydrogel.m</file>
       <file>${PROJECT_ROOT}\frame_measure_intensity_hydrogel.m</file>
+      <file>${PROJECT_ROOT}\frame_remove_duplicated_hydrogel.m</file>
       <file>${PROJECT_ROOT}\hydrogel_main1_detection.m</file>
       <file>${PROJECT_ROOT}\import_main.m</file>
+      <file>${PROJECT_ROOT}\visualize_color_image.m</file>
       <file>${PROJECT_ROOT}\zscan_detect_hydrogel.m</file>
       <file>${PROJECT_ROOT}\zscan_find_focal_plane.m</file>
       <file>${PROJECT_ROOT}\zscan_focused_image.m</file>
@@ -95,18 +99,12 @@
     </fileset.resources>
     <fileset.package />
     <fileset.depfun>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\compute_distance_matrix.m</file>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\frame_create_sub_image.m</file>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\frame_remove_duplicated_hydrogel.m</file>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\mark_duplicated_hydrogel.m</file>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\remove_duplicated_particle.m</file>
-      <file>W:\public\shintaku\github\image-preprocess-pygellan\visualize_color_image.m</file>
-      <file>W:\public\shintaku\github\MatlabCytofUtilities\fcs\fca_writefcs.m</file>
+      <file>C:\Users\lab\Documents\github\cyt3\src\3rdparty\jacob\fca_writefcs.m</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_analysis.exe" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_analysis.exe</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_analysis.exe" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_analysis.exe</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
