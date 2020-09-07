@@ -1,0 +1,169 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration file="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>pygellan_analysis</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark>Hirofumi Shintaku</param.authnamewatermark>
+    <param.email>hirofumi.shintaku@riken.jp</param.email>
+    <param.company>RIKEN</param.company>
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.guid />
+    <param.installpath.string>\RIKEN\pygellan_analysis\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.target.install.notes />
+    <param.intermediate>${PROJECT_ROOT}\pygellan_analysis\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\pygellan_analysis\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\pygellan_analysis\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\pygellan_analysis</param.logdir>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>false</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <param.native.matlab>false</param.native.matlab>
+    <param.checkbox>false</param.checkbox>
+    <param.example />
+    <param.help.text>Syntax 
+	  -? 
+	 
+ Input Arguments 
+	 -?  print help on how to use the application 
+	 input arguments</param.help.text>
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.install.notes />
+      <param.target.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.logdir />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.package.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+      <param.native.matlab />
+      <param.checkbox />
+      <param.example />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\pygellan_stitch_hydrogel.mlapp</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}\flowjo_create_fcs_metadata.m</file>
+      <file>${PROJECT_ROOT}\flowjo_export_data2fcs.m</file>
+      <file>${PROJECT_ROOT}\fmeasure.m</file>
+      <file>${PROJECT_ROOT}\frame_detect_hydrogel.m</file>
+      <file>${PROJECT_ROOT}\frame_measure_background_hydrogel.m</file>
+      <file>${PROJECT_ROOT}\frame_measure_intensity_hydrogel.m</file>
+      <file>${PROJECT_ROOT}\hydrogel_main1_detection.m</file>
+      <file>${PROJECT_ROOT}\import_main.m</file>
+      <file>${PROJECT_ROOT}\zscan_detect_hydrogel.m</file>
+      <file>${PROJECT_ROOT}\zscan_find_focal_plane.m</file>
+      <file>${PROJECT_ROOT}\zscan_focused_image.m</file>
+      <file>${PROJECT_ROOT}\zscan_remove_duplication.m</file>
+    </fileset.resources>
+    <fileset.package />
+    <fileset.depfun>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\compute_distance_matrix.m</file>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\frame_create_sub_image.m</file>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\frame_remove_duplicated_hydrogel.m</file>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\mark_duplicated_hydrogel.m</file>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\remove_duplicated_particle.m</file>
+      <file>W:\public\shintaku\github\image-preprocess-pygellan\visualize_color_image.m</file>
+      <file>W:\public\shintaku\github\MatlabCytofUtilities\fcs\fca_writefcs.m</file>
+    </fileset.depfun>
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_analysis.exe" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_analysis.exe</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2020a</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
