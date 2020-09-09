@@ -1,4 +1,4 @@
-function hydrogel_main1_detection(parameter,stitch_bf,stitch_488,stitch_532)
+function hydrogel_main1_detection(parameter,stitch,pygellan)
 project=[];
 experiment=[];
 cells=[];
@@ -28,9 +28,9 @@ parameter.zfocus=min(parameter.iz_max);
 parameter.t_sphericity=0.98;
 
 %     b=uint16(stitch_532(row_shift+1:row_shift+im_size_x2,:,:));
-b=uint16(stitch_bf);
-R=uint16(stitch_532);
-B=uint16(stitch_488);
+b=uint16(stitch.(pygellan.channel{1}));
+B=uint16(stitch.(pygellan.channel{2}));
+R=uint16(stitch.(pygellan.channel{3}));
 
 
 hydrogel=zscan_detect_hydrogel(b,parameter,'');

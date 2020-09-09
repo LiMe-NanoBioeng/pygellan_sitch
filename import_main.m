@@ -1,4 +1,4 @@
-function [stitch_bf,stitch_488,stitch_532,pygellan]=import_main(data_path,sigma)
+function [stitch,pygellan]=import_main(data_path,sigma)
 %clear all
 import py.pygellan.magellan_data.MagellanDataset 
 %data_path='U:\Shintaku\20200901\nishikawa_beads8R6G3_2';
@@ -23,8 +23,10 @@ end
 [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
 pygellan.ix=ix;pygellan.iy=iy;pygellan.iz=iz;pygellan.iz_max=iz_max;
 %[stitch_405,im_info]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_405.tiff');
-[stitch_488,~]=zscan_focused_image(magellan,channel(2),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_488.tiff'));
-[stitch_532,~]=zscan_focused_image(magellan,channel(3),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_532.tiff'));
-[stitch_bf,~]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_bf.tiff'));
-
+pygellan.channel=channel;
+for icnt=1:length(channel_names)
+[stitch.(channel{icnt}),~]=zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,[data_path '\' char(channel(1)) '.tiff']);
+%[stitch_532,~]=zscan_focused_image(magellan,channel(3),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_532.tiff'));
+%[stitch_bf,~]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_bf.tiff'));
+end
 end
