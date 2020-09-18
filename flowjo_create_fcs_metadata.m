@@ -4,7 +4,7 @@ creater='Hirofumi Shintaku';
 if strcmp(type,'hydrogel')
     listpar={'center_x','center_y','center_z','radii','metric','mean_intensity','Green','Red','num_of_G','num_of_R','id'};
 elseif strcmp(type,'raw_hydrogel')
-    listpar={'center_x','center_y','center_z','radii','metric','mean_intensity','Alexa_mean','Cy5_mean','id'};
+    listpar={'center_x','center_y','center_z','radii','metric','mean_intensity','Alexa_mean','Cy5_mean','UV_mean','id'};
 
 else
     listpar={'center_x','center_y','center_z','radii','metric','volume','Red_intensity','Green_intensity','Red_fluorescence','Grean_fluorescence','id'};

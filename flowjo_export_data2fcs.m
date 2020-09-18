@@ -19,7 +19,8 @@ data(:,5)=hydrogel.metric;
 data(:,6)=hydrogel.intensity;
 data(:,7)=hydrogel.Bintensity;
 data(:,8)=hydrogel.Rintensity;
-data(:,9)=[1:num_of_gels];
+data(:,9)=hydrogel.Uintensity;
+data(:,10)=[1:num_of_gels];
 else
 num_of_gels=length(hydrogel.radii);
 data(:,1:3)=hydrogel.centers;

@@ -28,9 +28,10 @@ parameter.zfocus=min(parameter.iz_max);
 parameter.t_sphericity=0.98;
 
 %     b=uint16(stitch_532(row_shift+1:row_shift+im_size_x2,:,:));
-b=uint16(stitch.(pygellan.channel{1}));
-B=uint16(stitch.(pygellan.channel{2}));
-R=uint16(stitch.(pygellan.channel{3}));
+b=uint16(stitch.(pygellan.channel{1}));     % Bright field
+B=uint16(stitch.(pygellan.channel{2}));     % Blue channel
+R=uint16(stitch.(pygellan.channel{3}));     % Red channel
+U=uint16(stitch.(pygellan.channel{4}));     % UV channel
 
 
 hydrogel=zscan_detect_hydrogel(b,parameter,'');
@@ -39,6 +40,8 @@ hydrogel=zscan_detect_hydrogel(b,parameter,'');
 hydrogel.Rintensity=intensity;
 [intensity]=frame_measure_intensity_hydrogel(B,hydrogel);
 hydrogel.Bintensity=intensity;
+[intensity]=frame_measure_intensity_hydrogel(U,hydrogel);
+hydrogel.Uintensity=intensity;
 figure(2)
 visualize_color_image(R,B,b)
 end_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');

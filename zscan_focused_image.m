@@ -78,6 +78,7 @@ for i_frames=0:num_frames
         if imshow_flag==1
             imshow(imadjust(stitch(:,:,icnt+1,i_frames+1)))
             drawnow
+            title(channel)
         end
         %pause
     end
