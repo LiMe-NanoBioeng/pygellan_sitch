@@ -25,7 +25,7 @@ pygellan.ix=ix;pygellan.iy=iy;pygellan.iz=iz;pygellan.iz_max=iz_max;
 %[stitch_405,im_info]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,'stitch_405.tiff');
 pygellan.channel=channel;
 for icnt=1:length(channel_names)
-[stitch.(channel{icnt}),~]=zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,[data_path '\' char(channel(1)) '.tiff']);
+[stitch.(channel{icnt}),~]=zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,[data_path '\' char(channel{icnt}) '.tiff']);
 %[stitch_532,~]=zscan_focused_image(magellan,channel(3),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_532.tiff'));
 %[stitch_bf,~]=zscan_focused_image(magellan,channel(1),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,cat(2,data_path,'\stitch_bf.tiff'));
 end
