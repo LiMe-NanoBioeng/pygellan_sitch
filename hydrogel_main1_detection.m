@@ -7,7 +7,6 @@ data_path=parameter.data_path;
 
 
 fcsfile=parameter.fcsname;
-%rawBeadsfilename=[data_path '/9_R6G6.fcs'];
 rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
 %addpath '/home/watson/public/shintaku/github/MatlabCytofUtilities/fcs'
 %addpath 'W:\public\shintaku\github\MatlabCytofUtilities\fcs'
@@ -15,7 +14,7 @@ rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
 
 cutoff.cluster=8;
 cutoff.radii=15;
-cutoff.intensity=5e2;
+cutoff.high_intensity=5e2;
 cutoff.low_intensity=5e2;
 parameter.cutoff=cutoff;
 
@@ -28,26 +27,24 @@ parameter.zfocus=min(parameter.iz_max);
 parameter.t_sphericity=0.98;
 
 %     b=uint16(stitch_532(row_shift+1:row_shift+im_size_x2,:,:));
-b=uint16(stitch.(pygellan.channel{1}));     % Bright field
-B=uint16(stitch.(pygellan.channel{2}));     % Blue channel
-R=uint16(stitch.(pygellan.channel{3}));     % Red channel
-U=uint16(stitch.(pygellan.channel{4}));     % UV channel
+num_ch=length(pygellan.channel);
+for icnt=1:num_ch
+    ch_name=pygellan.channel{icnt};
+    b=uint16(stitch.(pygellan.channel{icnt}));     % Bright field
+    if strcmp(ch_name,'BF')
+        hydrogel=zscan_detect_hydrogel(b,parameter,'');
+    end
+        [intensity]=frame_measure_intensity_hydrogel(b,hydrogel);
+         hydrogel.(ch_name)=intensity;
+    
+end
 
-
-hydrogel=zscan_detect_hydrogel(b,parameter,'');
-
-[intensity]=frame_measure_intensity_hydrogel(R,hydrogel);
-hydrogel.Rintensity=intensity;
-[intensity]=frame_measure_intensity_hydrogel(B,hydrogel);
-hydrogel.Bintensity=intensity;
-[intensity]=frame_measure_intensity_hydrogel(U,hydrogel);
-hydrogel.Uintensity=intensity;
-figure(2)
-visualize_color_image(R,B,b)
+%figure(2)
+%visualize_color_image(R,B,b)
 end_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 %delete(p)
 
-
+hydrogel.channels=pygellan.channel;
 %% export an fcs file
 % [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawBeadsfilename,data_path,length(beads.radii),'beads');
 % flowjo_export_data2fcs(rawBeadsfilename, beads, fcs_hdr,'beads')
@@ -55,12 +52,15 @@ end_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 % [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawRedfilename,data_path,length(Gbeads.radii),'beads')
 % flowjo_export_data2fcs(rawRedfilename, Rbeads, fcs_hdr,'Red')
 
- [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawhydrogelfilename,data_path,length(hydrogel.radii),'raw_hydrogel');
+ [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawhydrogelfilename,data_path,pygellan.channel,length(hydrogel.radii),'raw_hydrogel');
  flowjo_export_data2fcs(rawhydrogelfilename, hydrogel, fcs_hdr,'raw_hydrogel')
 
+channels=hydrogel.channels;
+num_ch=length(channels);
 
-subplot(4,1,1);hist(hydrogel.Bintensity,100);xlabel('Alexa')
-subplot(4,1,2);hist(hydrogel.Rintensity,100);xlabel('Cy5')
-subplot(4,1,3);hist(hydrogel.Rintensity./hydrogel.Bintensity,100);xlabel('normalized Cy5')
-subplot(4,1,4);hist(hydrogel.radii,100);xlabel('radii (pixel)')
+for icnt=1:num_ch
+    subplot(num_ch+2,1,icnt);hist(hydrogel.(channels(icnt)),100);xlabel(channels(icnt))
+end
+subplot(num_ch+2,1,3);hist(hydrogel.(channels(1))./hydrogel.(channels(2)),100);xlabel('normalized')
+subplot(num_ch+2,1,4);hist(hydrogel.radii,100);xlabel('radii (pixel)')
 end

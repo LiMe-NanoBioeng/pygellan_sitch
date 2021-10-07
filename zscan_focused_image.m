@@ -3,11 +3,12 @@ function [stitch,im_info]=zscan_focused_image(magellan,channel,blend_alpha,sigma
     col,row,ix,iy,iz,iz_max,num_frames,imshow_flag,filename)
 %% change here if the image size is changed.
 % filet 12 pixels from a side.
-img_size=512;img_filet_size=386;
+img_size=2048;img_filet_size=2048-1024;
 
 upper=min(iz_max-iz);
 lower=min(iz);
 
+% Read pair of image (index 1 and 2) and calculate overlap
 z_slices=cell(magellan.get_z_slices_at(0,0));
 g = cell(magellan.read_image(channel(1),0,int64(z_slices{1}),0,0,'False',1,'False'));
 pymetadata=g{1,2};
@@ -62,9 +63,32 @@ for i_frames=0:num_frames
                 else
                     tforms = affine2d([1 0 0; 0 1 0; 0 0 1]);
                 end
-                img_focus=uint16(double(imflatfield(uint16(g{1}),sigma)));
+                img_focus=uint16(imflatfield(double(uint16(g{1})),sigma));
+%                 figure(1)
+%                 subplot(2,2,1);imhist(uint32(uint16(g{1})),2^24);set(gca, 'YScale', 'log')
+%                 xlim([0, 2^17])
+%                 ylim([1,1e6])
+%                 title(num2str(max(max(uint16(g{1})))))
+%                 subplot(2,2,2);imshow(imadjust(uint16(g{1})))
+%                 subplot(2,2,3);imhist(img_focus,2^24);set(gca, 'YScale', 'log')
+%                 title(num2str(max(max(img_focus))))
+%                 ylim([1,1e6])
+%                 xlim([0, 2^17])
+%                 subplot(2,2,4);imshow(imadjust(uint16(img_focus)))
+%                 drawnow
+%                 figure(3)
+%                 contour(double(img_focus)/double(uint16(g{1})));colorbar
+%                 drawnow
+                %img_focus=uint16(double(uint16(g{1})).*sigma);
+                %img_focus=uint16(g{1});
+                %img_focus=imhistmatch(img_focus,stitch_ref(:,:,icnt+1,i_frames+1),2^14,'method','uniform');
+                %
+                %
                 img_focus_filet=img_focus((img_size-img_filet_size)/2+1:(img_size+img_filet_size)/2,...
                     (img_size-img_filet_size)/2+1:(img_size+img_filet_size)/2);
+                %pause
+                %imshow(imadjust(img_focus_filet));drawnow;pause()
+                
                 warpedImage = imwarp(img_focus_filet, tforms, 'OutputView', panoramaView);
                 %
                 % Generate a binary mask.
@@ -76,9 +100,10 @@ for i_frames=0:num_frames
         end
         stitch(:,:,icnt+1,i_frames+1)=uint16(panorama);
         if imshow_flag==1
-            imshow(imadjust(stitch(:,:,icnt+1,i_frames+1)))
-            drawnow
+            figure(2)
+            imshow(imadjust(uint16(stitch(:,:,icnt+1,i_frames+1))))
             title(channel)
+            drawnow
         end
         %pause
     end
@@ -86,6 +111,7 @@ end
 for it=1:num_frames+1
     for izz=1:upper+lower
         if izz==1 && it==1
+            %im32write(stitch(:,:,izz,it),filename);
             imwrite(stitch(:,:,izz,it),filename);
         else
             imwrite(stitch(:,:,izz,it),filename,'WriteMode','append');

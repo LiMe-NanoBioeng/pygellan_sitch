@@ -3,7 +3,7 @@ clear all
 import py.pygellan.magellan_data.MagellanDataset 
 data_path = uigetdir;
 % data_path='D:\Shintaku\20200901\nishikawa_beads9_10';
-sigma=80;%imflatfield parameter
+sigma=180;%imflatfield parameter
 
 
 
@@ -29,7 +29,8 @@ end
 [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
 
 for icnt=1:length(channel_names)
-    [stitch.(channel{icnt}),~] = zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,[data_path '\' char(channel(icnt)) '.tiff']);
+    [stitch.(channel{icnt}),~] = zscan_focused_image(magellan,channel(icnt),1,...
+        sigma,col,row,ix,iy,iz,iz_max,num_frames,1,[data_path '\' char(channel(icnt)) '.tiff']);
 end
 
 

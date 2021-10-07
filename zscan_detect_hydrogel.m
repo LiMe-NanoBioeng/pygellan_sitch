@@ -1,4 +1,4 @@
-function [hydrogel]=zscan_detect_hydrogel(stitch,par,circlelabel)
+function [hydrogel_out]=zscan_detect_hydrogel(stitch,par,circlelabel)
 cutoff=par.cutoff;
 if strcmp(circlelabel,'intensity')
     ilabel=5;
@@ -77,9 +77,9 @@ for icnt=1:img_size(3)
 end
 %% filter out errors
 if isempty(centers)~=1
-true_index=find(~(centers(:,4)>cutoff.radii & centers(:,5)<cutoff.intensity)&...
-    centers(:,5)>cutoff.low_intensity);%filtering
-
+% true_index=find(~(centers(:,4)>cutoff.radii & centers(:,5)<cutoff.high_intensity)&...
+%     centers(:,5)>cutoff.low_intensity);%filtering
+true_index=find(~centers(:,4)==0);
 %% clustering 3d positioned circles
 Z=linkage(centers(true_index,1:2),'average','chebychev');
 T=cluster(Z,'cutoff',cutoff.cluster,'Criterion','distance');
@@ -103,13 +103,13 @@ for icnt=1:num_of_3dgel
     centers_max(icnt,4)=sum(centers(true_index(index),4).*coef);
     centers_max(icnt,5)=sum(centers(true_index(index),5).*coef);
     centers_max(icnt,6)=sum(centers(true_index(index),6).*coef);
-    hydrogel.centers(icnt,1:3)=centers_max(icnt,1:3);
-    hydrogel.radii(icnt,1)=centers_max(icnt,4);
-    hydrogel.intensity(icnt,1)=centers_max(icnt,5);
-    hydrogel.metric(icnt,1)=centers_max(icnt,6);
-    hydrogel.unique(icnt,1)=1;
+    hydrogel_out.centers(icnt,1:3)=centers_max(icnt,1:3);
+    hydrogel_out.radii(icnt,1)=centers_max(icnt,4);
+    hydrogel_out.intensity(icnt,1)=centers_max(icnt,5);
+    hydrogel_out.metric(icnt,1)=centers_max(icnt,6);
+    hydrogel_out.unique(icnt,1)=1;
 end
-    hydrogel.num_of_gel=num_of_3dgel;
+    hydrogel_out.num_of_gel=num_of_3dgel;
 %% just visualization
 %[v,iz]=max(num_of_gel);
 img=uint16(max(stitch,[],3));

@@ -1,13 +1,11 @@
-function [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,filename,data_path,num_of_event,type)
+function [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,filename,data_path,channels,num_of_event,type)
 software_ver='zscan_stitch_ver1';
 creater='Hirofumi Shintaku';
 if strcmp(type,'hydrogel')
     listpar={'center_x','center_y','center_z','radii','metric','mean_intensity','Green','Red','num_of_G','num_of_R','id'};
-elseif strcmp(type,'raw_hydrogel')
-    listpar={'center_x','center_y','center_z','radii','metric','mean_intensity','Alexa_mean','Cy5_mean','UV_mean','id'};
-
-else
-    listpar={'center_x','center_y','center_z','radii','metric','volume','Red_intensity','Green_intensity','Red_fluorescence','Grean_fluorescence','id'};
+else%if strcmp(type,'raw_hydrogel')
+    %channels
+    listpar=cat(2,{'center_x','center_y','center_z','radii','metric'},cellstr(channels),{'id'});
 end
 NumOfPar=length(listpar);
 par=struct('name',listpar,...

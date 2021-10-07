@@ -1,7 +1,7 @@
 function [stitch,pygellan]=import_main(data_path,sigma)
 %clear all
 import py.pygellan.magellan_data.MagellanDataset 
-%data_path='U:\Shintaku\20200901\nishikawa_beads8R6G3_2';
+%data_path='E:\Kaneko\20210714\0714_HeLaSYBRII_RNASelect_After_2';
 %sigma=80;%imflatfield parameter
 
 

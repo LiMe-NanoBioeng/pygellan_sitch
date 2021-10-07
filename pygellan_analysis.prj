@@ -1,9 +1,9 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="3756483336" file="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
-    <param.appname>pygellan_analysis</param.appname>
+  <configuration build-checksum="3756483336" file="C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\lab\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>pygellan_stitch_hydrogel</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.0</param.version>
+    <param.version>2.0</param.version>
     <param.authnamewatermark>Hirofumi Shintaku</param.authnamewatermark>
     <param.email>hirofumi.shintaku@riken.jp</param.email>
     <param.company>RIKEN</param.company>
@@ -11,7 +11,7 @@
     <param.description />
     <param.screenshot />
     <param.guid />
-    <param.installpath.string>\RIKEN\pygellan_analysis\</param.installpath.string>
+    <param.installpath.string>\RIKEN\pygellan_stitch_hydrogel\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes />
@@ -45,7 +45,6 @@
     <unset>
       <param.icon />
       <param.icons />
-      <param.version />
       <param.summary />
       <param.description />
       <param.screenshot />
@@ -101,9 +100,9 @@
     <fileset.package />
     <fileset.depfun />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_analysis.exe" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_analysis.exe</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_stitch_hydrogel.exe" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_stitch_hydrogel.exe</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
