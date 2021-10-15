@@ -3,7 +3,9 @@ function [stitch,im_info]=zscan_focused_image(magellan,channel,blend_alpha,sigma
     col,row,ix,iy,iz,iz_max,num_frames,imshow_flag,filename)
 %% change here if the image size is changed.
 % filet 12 pixels from a side.
-img_size=2048;img_filet_size=2048-1024;
+img_size=double(magellan.image_width);
+overlap=double(magellan.overlap);
+img_filet_size=img_size-overlap(1);
 
 upper=min(iz_max-iz);
 lower=min(iz);
@@ -20,7 +22,7 @@ pymetadata=g{1,2};
 Xpos=pymetadata{'XPositionUm'};
 Ypos=pymetadata{'YPositionUm'};
 PixelSize=pymetadata{'PixelSizeUm'};
-overlap=1-sqrt((Xpos-X0pos)^2+(Ypos-Y0pos)^2)/PixelSize/img_size;
+overlap=double(1-sqrt((Xpos-X0pos)^2+(Ypos-Y0pos)^2)/PixelSize/img_size);
 img=uint16(g{1});
 imageSize=round(size(img)*(1-overlap));
 width=imageSize(1,1)*col;
