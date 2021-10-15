@@ -3,7 +3,10 @@ function [stitch,im_info]=zscan_focused_image(magellan,channel,blend_alpha,sigma
     col,row,ix,iy,iz,iz_max,num_frames,imshow_flag,filename)
 %% change here if the image size is changed.
 % filet 12 pixels from a side.
-img_size=2048;img_filet_size=2048-1024;
+%img_size=2048;img_filet_size=2048-1024;
+img_size=double(magellan.image_width);
+overlap=double(magellan.overlap);
+img_filet_size=img_size-overlap(1);
 
 upper=min(iz_max-iz);
 lower=min(iz);
