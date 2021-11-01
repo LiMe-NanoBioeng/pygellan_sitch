@@ -3,10 +3,11 @@ project=[];
 experiment=[];
 cells=[];
 start_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
-data_path=parameter.data_path;
+data_path=parameter.data_path
 
 
 fcsfile=parameter.fcsname;
+%rawhydrogelfilename=fullfile(data_path,append(fcsfile,".fcs"));
 rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
 %addpath '/home/watson/public/shintaku/github/MatlabCytofUtilities/fcs'
 %addpath 'W:\public\shintaku\github\MatlabCytofUtilities\fcs'
@@ -25,6 +26,7 @@ parameter.filterMagR=50;
 parameter.mindistance=0.9;
 parameter.zfocus=min(parameter.iz_max);
 parameter.t_sphericity=0.98;
+
 
 %     b=uint16(stitch_532(row_shift+1:row_shift+im_size_x2,:,:));
 num_ch=length(pygellan.channel);

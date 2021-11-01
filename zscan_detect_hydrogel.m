@@ -114,21 +114,21 @@ end
 %[v,iz]=max(num_of_gel);
 img=uint16(max(stitch,[],3));
 ad_img=imadjust(img);
-figure(2);
+fig2=figure(2);
 imshow(ad_img);hold on    
 viscircles(centers_max(:,1:2),centers_max(:,4),'EdgeColor','r','LineWidth',0.2);
 if ilabel~=0;text(centers_max(:,1),centers_max(:,2),num2str(centers_max(:,ilabel)),'Color','Yellow');end
 drawnow
 hold off
 %% visualize the result
-figure(3)
+fig3=figure(3)
 %cmap=colormap(jet);
 %        color=cmap(uint16(double(T)*double(255/num_of_3dgel)),:);
 %viscircles3(centers_max(:,1:2),centers_max(:,4),centers_max(:,3),color);
 plot3(centers_max(:,1),centers_max(:,2),centers_max(:,3),'.r')
 set(gca,'YDir','reverse')
 %%
-figure(4)
+fig4=figure(4)
 subplot(1,3,1);scatter(centers(:,4),centers(:,5),'o')
 xlabel('radii');ylabel('intensity')
 subplot(1,3,2);scatter(centers(:,4),centers(:,6),'o')
@@ -137,7 +137,7 @@ subplot(1,3,3);scatter(centers(:,5),centers(:,6),'o')
 xlabel('intensity');ylabel('metric')
      %end
 % end
-
+saveas(fig2,fullfile(par.data_path,'detected.jpg'))
 %axis equal
 end
 end
