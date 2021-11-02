@@ -7,8 +7,8 @@ data_path=parameter.data_path
 
 
 fcsfile=parameter.fcsname;
-%rawhydrogelfilename=fullfile(data_path,append(fcsfile,".fcs"));
-rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
+rawhydrogelfilename= char(fullfile(data_path,append(fcsfile,".fcs")));
+%rawhydrogelfilename=[data_path '/' fcsfile,'.fcs'];
 %addpath '/home/watson/public/shintaku/github/MatlabCytofUtilities/fcs'
 %addpath 'W:\public\shintaku\github\MatlabCytofUtilities\fcs'
 %addpath 'W:\public\shintaku\github\image-preprocess-pygellan'
