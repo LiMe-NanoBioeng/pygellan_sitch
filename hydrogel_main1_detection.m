@@ -3,7 +3,7 @@ project=[];
 experiment=[];
 cells=[];
 start_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
-data_path=parameter.data_path
+data_path=parameter.data_path;
 
 
 fcsfile=parameter.fcsname;
