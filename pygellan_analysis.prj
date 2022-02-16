@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="3756483336" file="C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\lab\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="3756483336" file="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis.prj" location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch" name="pygellan_analysis" preferred-package-location="C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>pygellan_stitch_hydrogel</param.appname>
     <param.icon />
     <param.icons />
@@ -91,7 +91,12 @@
       <file>${PROJECT_ROOT}\frame_remove_duplicated_hydrogel.m</file>
       <file>${PROJECT_ROOT}\hydrogel_main1_detection.m</file>
       <file>${PROJECT_ROOT}\import_main.m</file>
+      <file>${PROJECT_ROOT}\main2_flowjo.m</file>
+      <file>${PROJECT_ROOT}\main3_machinelearning.m</file>
+      <file>${PROJECT_ROOT}\MatlabCytofUtilities</file>
+      <file>${PROJECT_ROOT}\pygellan_stitch_hydrogel.mlapp</file>
       <file>${PROJECT_ROOT}\visualize_color_image.m</file>
+      <file>${PROJECT_ROOT}\visualize_flowjo_gate_result.m</file>
       <file>${PROJECT_ROOT}\zscan_detect_hydrogel.m</file>
       <file>${PROJECT_ROOT}\zscan_find_focal_plane.m</file>
       <file>${PROJECT_ROOT}\zscan_focused_image.m</file>
@@ -100,13 +105,13 @@
     <fileset.package />
     <fileset.depfun />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_stitch_hydrogel.exe" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_stitch_hydrogel.exe</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
-      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\lab\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="readme.txt" optional="true">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="pygellan_stitch_hydrogel.exe" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\pygellan_stitch_hydrogel.exe</file>
+      <file location="${PROJECT_ROOT}\pygellan_analysis\for_testing" name="splash.png" optional="false">C:\Users\hirof\Documents\MATLAB\pygellan_stitch\pygellan_analysis\for_testing\splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2020a</root>
+      <root>C:\Program Files\MATLAB\R2021b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="embeddedcoder" />
