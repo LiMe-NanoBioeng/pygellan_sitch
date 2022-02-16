@@ -35,8 +35,10 @@ for icnt=1:img_size(3)
     cur_high=double(max(img,[],'all'));
 %     cur_low=double(min(img,[],'all'));
     %ad_img=imadjust(img,[0 cur_high/high_int]);
+    %initial visualization without duplication removal
     ad_img=imadjust(img);
-    figure(1);imshow(ad_img);hold on
+    figure(1);
+    imshow(ad_img);hold on
     %vol_img(:,:,icnt)=im2uint8(ad_img);
     %% in case edge image is useful
     rho=imgaussfilt(ad_img);

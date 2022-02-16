@@ -1,19 +1,20 @@
 
-function main2_flowjo(fcsfile,hydrogel_xml_filename)
+function [obj]=main2_flowjo(gate,fcsfile,xml_filename)
 %https://github.com/nolanlab/MatlabCytofUtilities
 addpath(genpath('.\MatlabCytofUtilities'));
 
-% ws_name='\11-May-2020';
-%  rawbeadsfilename=[data_path '\rawbeads.fcs'];
-% rawhydrogelfilename=[data_path '\rawhydrogel.fcs'];
-%  beads_xml_filename=[data_path ws_name '_rawbeads.fcs_gates.xml']; 
-% hydrogel_xml_filename=[data_path ws_name '_rawhydrogel.fcs_gates.xml']; 
-%make the figure
-%figure(2)
-%visualize_color_image(R,G,b)
 hold on
-%[bSignal_bool]=visualize_flowjo_gate_result(fcsfile,beads_xml_filename,{'green';'red'});
-[hSignal_bool]=visualize_flowjo_gate_result(fcsfile,hydrogel_xml_filename,{'blue'});
+
+%% check out the following repository for I/O fcs and gatingML files
+% https://github.com/nolanlab/MatlabCytofUtilities.git
+%%
+%read data from fcs file
+[~,fcs_hdr,fcs_data]=fca_readfcs(fcsfile);
+
+obj=gatingML(xml_filename); %create gatingML object
+obj=obj.load_fcs_file(fcs_data,fcs_hdr); %associate the fcs data with these gates
+
+visualize_flowjo_gate_result(obj,gate,{'red'});
 
 
 end

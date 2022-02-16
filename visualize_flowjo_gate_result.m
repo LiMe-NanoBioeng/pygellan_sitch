@@ -1,35 +1,22 @@
-function [Signal_bool]=visualize_flowjo_gate_result(fcs_filename,xml_filename,color)
+function visualize_flowjo_gate_result(obj,gate,color)
 % center_x_col=1;
 % center_y_col=2;
 gateidnum=1;
-
-%% check out the following repository for I/O fcs and gatingML fiels
-% https://github.com/nolanlab/MatlabCytofUtilities.git
-%%
-%read data from fcs file
-[~,fcs_hdr,fcs_data]=fca_readfcs(fcs_filename);
-
-obj=gatingML(xml_filename); %create gatingML object
-obj=obj.load_fcs_file(fcs_data,fcs_hdr); %associate the fcs data with these gates
-
-%Note that gate names as specified in the Gating-ML file may be adjusted to
-%fit variable name requirements. The original name can be found in 
-%obj.gates.(gate_name).name
-
-%apply all gates and report number of cells in each
-gateNames=fieldnames(obj.gates);
-numGates=length(gateNames);
-for i=1:numGates
-    obj=obj.apply_gate(gateNames{i});
-    num_cells=nnz(obj.gates.(gateNames{i}).inGate);
-    display([num2str(num_cells) ' hydrogels/particles found in gate ' obj.gates.(gateNames{i}).name])
-    if i==1
-        Signal_bool(:,1)=obj.gates.(gateNames{i}).inGate;
-    else
-        Signal_bool(:,i)=obj.gates.(gateNames{i}).inGate;
-    end
-        
+%
+if strcmp(gate,'machine_learning')
+    index=find(ismember(obj.fcsData.uncompensated.params,'bool'));
+    Signal_bool(:,gateidnum)=obj.fcsData.uncompensated.data(:,index);
+    num_cells=nnz(Signal_bool(:,gateidnum));
+    display([num2str(num_cells) ' hydrogels/particles found in gate ' gate])
+else
+    obj=obj.apply_gate(gate);
+    num_cells=nnz(obj.gates.(gate).inGate);
+    Signal_bool(:,gateidnum)=obj.gates.(gate).inGate;
+    %compare(:,1)=obj.gates.(gate).inGate;
+    %compare(:,2)=obj.fcsData.uncompensated.data(:,11);
+    display([num2str(num_cells) ' hydrogels/particles found in gate ' obj.gates.(gate).name])
 end
+
 Error_bool=logical(~Signal_bool(:,gateidnum));
 
 %scatter plot of uncompensated data within a gate using a transformation from 
@@ -43,12 +30,6 @@ Error_data=uncompData(Error_bool(:,gateidnum),:); % filtered data to chosen para
 %Error_data2=uncompData(Error_bool2,[1:11]);
 %viscircles(Error_data(:,1:2),Error_data(:,4),'Color','blue','LineWidth',0.1); %scatter plot of data
 plot(Error_data(:,1),Error_data(:,2),'xb'); %scatter plot of data
-Signal_data=uncompData(Signal_bool(:,gateidnum),:);
+Signal_data=uncompData(logical(Signal_bool(:,gateidnum)),:);
 viscircles(Signal_data(:,1:2),Signal_data(:,4),'Color',color{gateidnum},'LineWidth',0.1); %scatter plot of data
-for icnt=2:numGates
-Signal_data=uncompData(Signal_bool(:,icnt),:);
-viscircles(Signal_data(:,1:2),Signal_data(:,4),'Color',color{icnt-1},'LineWidth',0.1); %scatter plot of data
-end
-xlabel(myParams{1})
-ylabel(myParams{2})
 end
