@@ -1,7 +1,7 @@
 
 function [obj]=main2_flowjo(gate,fcsfile,xml_filename)
 %https://github.com/nolanlab/MatlabCytofUtilities
-addpath(genpath('.\MatlabCytofUtilities'));
+addpath(genpath('MatlabCytofUtilities'));
 
 hold on
 
