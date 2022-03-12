@@ -10,8 +10,10 @@ hydrogel = struct('centers',centers(th_metric,:),...
 num_of_gel=length(hydrogel.radii);
 hydrogel.num_of_gel=num_of_gel;
 hydrogel.unique=true(size(hydrogel.radii));
-[intensity]=frame_measure_intensity_hydrogel(I,hydrogel);
+[intensity,variance]=frame_measure_intensity_hydrogel(imgradient(I),hydrogel);
 hydrogel.intensity=intensity;
+hydrogel.variance=variance;
+%hydrogel.var=variance;
 
 
 %% find unique hydrogel

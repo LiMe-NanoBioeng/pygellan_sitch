@@ -34,8 +34,9 @@ for icnt=1:num_ch
     if strcmp(ch_name,'BF')
         hydrogel=zscan_detect_hydrogel(b,parameter,'');
     end
-        [intensity]=frame_measure_intensity_hydrogel(b,hydrogel);
+        [intensity,varience]=frame_measure_intensity_hydrogel(b,hydrogel);
          hydrogel.(ch_name)=intensity;
+         hydrogel.(strcat(ch_name,"_var"))=varience;
     
 end
 
@@ -44,7 +45,7 @@ end
 end_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 %delete(p)
 
-hydrogel.channels=channel;
+hydrogel.channels=["intensity","variance",channel,strcat(channel,"_var")];%channel;
 %% export an fcs file
 % [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawBeadsfilename,data_path,length(beads.radii),'beads');
 % flowjo_export_data2fcs(rawBeadsfilename, beads, fcs_hdr,'beads')
@@ -55,14 +56,14 @@ num_of_event=length(hydrogel.radii);
 
  [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,...
      rawhydrogelfilename,data_path,...
-     channel,num_of_event);
+     hydrogel.channels,num_of_event);
 
  flowjo_export_data2fcs(parameter,rawhydrogelfilename, hydrogel, fcs_hdr)
 % if isfield(parameter,'Mdl')
 %     figure(2);
 %     [~]=main2_flowjo('machine_learning',rawhydrogelfilename,parameter.xml_filename);
 % end
-channels=hydrogel.channels;
+channels=channel;
 num_ch=length(channels);
 figure(5);
 for icnt=1:num_ch

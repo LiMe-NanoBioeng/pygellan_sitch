@@ -1,4 +1,4 @@
-function [intensity]=frame_measure_intensity_hydrogel(I,hydrogel)
+function [intensity,variance]=frame_measure_intensity_hydrogel(I,hydrogel)
 pad=2 ;
 num_of_gel=hydrogel.num_of_gel;
 hydrogel.intensity=zeros(num_of_gel,1);
@@ -7,6 +7,7 @@ img_size=size(I);
 centers=int16([hydrogel.centers]);
 radii=hydrogel.radii;
 intensity=zeros(num_of_gel,1);
+variance=zeros(num_of_gel,1);
 for igel=1:num_of_gel
     [rowstart,rowend,colstart,colend]=...
         frame_create_sub_image(centers(igel,2),centers(igel,1),...
@@ -19,7 +20,8 @@ for igel=1:num_of_gel
     R=bwdist(C);
     Label=R <= radii(igel);
     %vol_Label(:,:,icnt)=int8(vol_Label(:,:,icnt))+int8(Label);
-    Lprop=regionprops(Label,subimage,'MeanIntensity');
+    Lprop=regionprops(Label,subimage,'MeanIntensity','PixelValues');
     intensity(igel)=Lprop.MeanIntensity;
+    variance(igel)=sqrt(var(double(Lprop.PixelValues)))/intensity(igel);
 end
 end

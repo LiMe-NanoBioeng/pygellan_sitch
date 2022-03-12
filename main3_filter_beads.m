@@ -7,7 +7,8 @@ fcsData.gate=obj.gates.(gate).inGate;
 %tic
 rng('default')
 t = templateTree('Reproducible',true);
-Mdl1 = fitcensemble(fcsData.data(:,4:9),fcsData.gate,'OptimizeHyperparameters','auto','Learners',t, ...
+
+Mdl1 = fitcensemble(fcsData.data(:,4:8),fcsData.gate,'OptimizeHyperparameters','auto','Learners',t, ...
     'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus'))
 %toc
 %rsLoss1 = resubLoss(Mdl1)

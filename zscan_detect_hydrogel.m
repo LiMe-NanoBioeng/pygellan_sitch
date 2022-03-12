@@ -74,6 +74,7 @@ for icnt=1:img_size(3)
             linspace(double(icnt),double(icnt),int16(hydrogel_z(icnt).num_of_gel))',...
             [hydrogel_z(icnt).radii],...
             [hydrogel_z(icnt).intensity],...
+            [hydrogel_z(icnt).variance],...
             [hydrogel_z(icnt).metric]]);
     end
 end
@@ -89,11 +90,11 @@ T=cluster(Z,'cutoff',cutoff.cluster,'Criterion','distance');
 %
 %%
 num_of_3dgel=max(T);
-centers_max=zeros(length(true_index),6);
+centers_max=zeros(length(true_index),7);
 for icnt=1:num_of_3dgel
     index=find(T==icnt);
-    coef=centers(true_index(index),5).*centers(true_index(index), 6)...
-        /sum(centers(true_index(index),5).*centers(true_index(index), 6));
+    coef=centers(true_index(index),5).*centers(true_index(index), 7)...
+        /sum(centers(true_index(index),5).*centers(true_index(index), 7));
     [v,index_max]=max(coef);
     %             g = cell(magellan.read_image(channel,0,int64(z_slices{icnt}),0,index,'False',1,'False'));
     %             img=uint16(double(uint16(g{1})).*flatfield_405);
@@ -105,10 +106,12 @@ for icnt=1:num_of_3dgel
     centers_max(icnt,4)=sum(centers(true_index(index),4).*coef);
     centers_max(icnt,5)=sum(centers(true_index(index),5).*coef);
     centers_max(icnt,6)=sum(centers(true_index(index),6).*coef);
+    centers_max(icnt,7)=sum(centers(true_index(index),7).*coef);
     hydrogel_out.centers(icnt,1:3)=centers_max(icnt,1:3);
     hydrogel_out.radii(icnt,1)=centers_max(icnt,4);
     hydrogel_out.intensity(icnt,1)=centers_max(icnt,5);
-    hydrogel_out.metric(icnt,1)=centers_max(icnt,6);
+    hydrogel_out.variance(icnt,1)=centers_max(icnt,6);
+    hydrogel_out.metric(icnt,1)=centers_max(icnt,7);
     hydrogel_out.unique(icnt,1)=1;
 end
     hydrogel_out.num_of_gel=num_of_3dgel;
