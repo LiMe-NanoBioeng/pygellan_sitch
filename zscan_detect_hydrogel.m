@@ -38,11 +38,11 @@ for icnt=1:img_size(3)
     %initial visualization without duplication removal
     ad_img=imadjust(img);
     figure(1);
-    imshow(ad_img);hold on
     %vol_img(:,:,icnt)=im2uint8(ad_img);
     %% in case edge image is useful
     rho=imgaussfilt(ad_img);
     rho=imcomplement(rho);
+    imshow(imadjust(rho));hold on
     %rho=locallapfilt(rho,0.9,1.5);% arbitorary parameter
 
     hydrogel=frame_detect_hydrogel(img,rho,par.sizerange,par.sensitivity,par.edgethreshold,par.metricthreshold,par.radii_overlap);
