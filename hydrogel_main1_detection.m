@@ -28,12 +28,13 @@ parameter.t_sphericity=0.98;
 channel=transpose(fieldnames(stitch));
 
 num_ch=length(channel);
+b=uint16(stitch.BFflat);     % Bright field
+hydrogel=zscan_detect_hydrogel(b,parameter,'');
+
 for icnt=1:num_ch
     ch_name=channel{icnt};
     b=uint16(stitch.(channel{icnt}));     % Bright field
-    if strcmp(ch_name,'BF')
-        hydrogel=zscan_detect_hydrogel(b,parameter,'');
-    end
+
         [intensity,varience]=frame_measure_intensity_hydrogel(b,hydrogel);
          hydrogel.(ch_name)=intensity;
          hydrogel.(strcat(ch_name,"_var"))=varience;

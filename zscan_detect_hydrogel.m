@@ -32,7 +32,7 @@ high_int=double(max(intensity))/par.imadjust;
 num_of_all_gel=0;
 for icnt=1:img_size(3)
     img=uint16(stitch(:,:,icnt));
-    cur_high=double(max(img,[],'all'));
+%    cur_high=double(max(img,[],'all'));
 %     cur_low=double(min(img,[],'all'));
     %ad_img=imadjust(img,[0 cur_high/high_int]);
     %initial visualization without duplication removal
@@ -42,6 +42,7 @@ for icnt=1:img_size(3)
     %vol_img(:,:,icnt)=im2uint8(ad_img);
     %% in case edge image is useful
     rho=imgaussfilt(ad_img);
+    rho=imcomplement(rho);
     %rho=locallapfilt(rho,0.9,1.5);% arbitorary parameter
 
     hydrogel=frame_detect_hydrogel(img,rho,par.sizerange,par.sensitivity,par.edgethreshold,par.metricthreshold,par.radii_overlap);
