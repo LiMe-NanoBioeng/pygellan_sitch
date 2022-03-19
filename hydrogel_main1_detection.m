@@ -70,6 +70,6 @@ figure(5);
 for icnt=1:num_ch
     subplot(num_ch+2,1,icnt);hist(hydrogel.(channels{icnt}),100);xlabel(channels{icnt})
 end
-subplot(num_ch+2,1,3);hist(hydrogel.(channels{1})./hydrogel.(channels{2}),100);xlabel('normalized')
-subplot(num_ch+2,1,4);hist(hydrogel.radii,100);xlabel('radii (pixel)')
+subplot(num_ch+2,1,num_ch+1);hist(hydrogel.(channels{1})./hydrogel.(channels{2}),100);xlabel('normalized')
+subplot(num_ch+2,1,num_ch+2);hist(hydrogel.radii,100);xlabel('radii (pixel)')
 end
