@@ -33,10 +33,11 @@ hydrogel=zscan_detect_hydrogel(b,parameter,'');
 
 for icnt=1:num_ch
     ch_name=channel{icnt};
-    b=uint16(stitch.(channel{icnt}));     % Bright field
-
+    b=imflatfield(uint16(stitch.(channel{icnt})),parameter.sigma);     % Bright field
+    bmedian=double(median(b,'all'));
         [intensity,varience]=frame_measure_intensity_hydrogel(b,hydrogel);
          hydrogel.(ch_name)=intensity;
+         hydrogel.(strcat(ch_name,"_bgsub"))=intensity-bmedian;
          hydrogel.(strcat(ch_name,"_var"))=varience;
     
 end
@@ -46,7 +47,7 @@ end
 end_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 %delete(p)
 
-hydrogel.channels=["intensity","variance",channel,strcat(channel,"_var")];%channel;
+hydrogel.channels=["intensity","variance",channel,strcat(channel,"_var"),strcat(channel,"_bgsub")];%channel;
 %% export an fcs file
 % [fcs_hdr]=flowjo_create_fcs_metadata(start_time,end_time,project,experiment,cells,rawBeadsfilename,data_path,length(beads.radii),'beads');
 % flowjo_export_data2fcs(rawBeadsfilename, beads, fcs_hdr,'beads')
