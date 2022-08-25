@@ -60,8 +60,8 @@ for i_frames=0:num_frames
                 g = cell(magellan.read_image(channel,0,int64(z_slices{iz_index}),...
                     i_frames,index,'False',1,'False'));
                 if index~=0
-                    translationX=(1-overlap)*double((ix(index+1)-1)*img_size);
-                    translationY=(1-overlap)*double((iy(index+1)-1)*img_size);
+                    translationX=(1-overlap)*double((ix(index+1)-1))*double(img_size);
+                    translationY=(1-overlap)*double((iy(index+1)-1))*double(img_size);
                     tforms = affine2d([1 0 0; 0 1 0; translationX translationY 1]);
                 else
                     tforms = affine2d([1 0 0; 0 1 0; 0 0 1]);
