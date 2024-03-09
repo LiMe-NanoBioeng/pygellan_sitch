@@ -18,9 +18,9 @@ if dimension(2)==2;
 end
 %% compute the range of intensity
 %high_int=0;low_int=2^16-1;
-stitch_size=size(stitch);
-%intensity=reshape(stitch,[stitch_size(1)*stitch_size(2)*stitch_size(3),1]);
-intensity=reshape(stitch,[stitch_size(1)*stitch_size(2),1]);
+%stitch_size=size(stitch);
+intensity=reshape(stitch,[img_size(1)*img_size(2)*img_size(3),1]);
+%intensity=reshape(stitch,[stitch_size(1)*stitch_size(2),1]);
 low_int=double(min(intensity));
 high_int=double(max(intensity))/par.imadjust;
 

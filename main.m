@@ -26,7 +26,7 @@ for icnt=1:length(channel_names)
     channel(icnt)=string(channel_names{icnt});
 end
 
-[ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
+%[ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
 
 for icnt=1:length(channel_names)
     [stitch.(channel{icnt}),~] = zscan_focused_image(magellan,channel(icnt),1,...

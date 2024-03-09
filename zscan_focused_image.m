@@ -67,26 +67,7 @@ for i_frames=0:num_frames
                     tforms = affine2d([1 0 0; 0 1 0; 0 0 1]);
                 end
                 img_focus=uint16(imflatfield(double(uint16(g{1})),sigma));
-%                 figure(1)
-%                 subplot(2,2,1);imhist(uint32(uint16(g{1})),2^24);set(gca, 'YScale', 'log')
-%                 xlim([0, 2^17])
-%                 ylim([1,1e6])
-%                 title(num2str(max(max(uint16(g{1})))))
-%                 subplot(2,2,2);imshow(imadjust(uint16(g{1})))
-%                 subplot(2,2,3);imhist(img_focus,2^24);set(gca, 'YScale', 'log')
-%                 title(num2str(max(max(img_focus))))
-%                 ylim([1,1e6])
-%                 xlim([0, 2^17])
-%                 subplot(2,2,4);imshow(imadjust(uint16(img_focus)))
-%                 drawnow
-%                 figure(3)
-%                 contour(double(img_focus)/double(uint16(g{1})));colorbar
-%                 drawnow
-                %img_focus=uint16(double(uint16(g{1})).*sigma);
-                %img_focus=uint16(g{1});
-                %img_focus=imhistmatch(img_focus,stitch_ref(:,:,icnt+1,i_frames+1),2^14,'method','uniform');
-                %
-                %
+
                 img_focus_filet=img_focus((img_size-img_filet_size)/2+1:(img_size+img_filet_size)/2,...
                     (img_size-img_filet_size)/2+1:(img_size+img_filet_size)/2);
                 %pause

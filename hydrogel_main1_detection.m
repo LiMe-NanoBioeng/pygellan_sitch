@@ -4,9 +4,45 @@ experiment=[];
 cells=[];
 start_time=datetime('now','TimeZone','local','Format',' HH:mm:ss');
 data_path=parameter.data_path;
+filetail=extractAfter(string(parameter.channel),...
+    regexp(parameter.channel,'[1234567890]_[1234567890]')+1);
+filehead=extractBefore(string(parameter.channel),...
+    regexp(parameter.channel,'[1234567890]_T[1234567890]')+1);
+channel=transpose(fieldnames(stitch));
+
+sel_fieldnames=find(contains(channel,filetail) & contains(channel,filehead));
+sel_channel=channel(sel_fieldnames);
+bright_stitch=[];
+for icnt=1:length(sel_channel)
+    b=stitch.(string(sel_channel(icnt)));
+    edofimg = fstack(mat2cell(b, size(b,1), size(b,2), ones(1,size(b,3))));
+    if icnt>1
+        [D(:,:,:,icnt-1),edofimg] = imregdemons(edofimg,bright_stitch.(string(sel_channel(icnt-1)))); 
+    end
+    bright_stitch.(string(sel_channel(icnt)))=edofimg;
+end
 
 
-fcsfile=parameter.fcsname;
+sel_fieldnames=find(contains(channel,filehead));
+sel_channel=channel(sel_fieldnames);
+
+new_stitch=[];
+RegionTime=extractBefore(transpose(fieldnames(bright_stitch)),append('_',filetail));
+for icnt=1:length(sel_channel)
+    channel=string(sel_channel(icnt));
+    b=stitch.(channel);
+    edofimg = fstack(mat2cell(b, size(b,1), size(b,2), ones(1,size(b,3))));
+    iRegionTime=extractBefore(channel,regexp(parameter.channel,'_[1234567890]_'));
+    if ~strcmp(RegionTime(1),iRegionTime)
+        iD=find(contains(RegionTime,iRegionTime));
+        edofimg=imwarp(edofimg,D(:,:,:,iD-1));
+    end
+        new_stitch.(string(sel_channel(icnt)))=edofimg;
+end
+
+stitch=new_stitch;
+fcsfile=parameter.fcsname+"_"+filehead;
+
 rawhydrogelfilename= char(fullfile(data_path,append(fcsfile,".fcs")));
 
 cutoff.cluster=8;
@@ -28,12 +64,16 @@ parameter.t_sphericity=0.98;
 channel=transpose(fieldnames(stitch));
 
 num_ch=length(channel);
-b=uint16(stitch.BFflat);     % Bright field
+b=uint16(stitch.(parameter.channel));
+%edofimg = fstack(mat2cell(b, size(b,1), size(b,2), ones(1,size(b,3))));
+% Bright field
 hydrogel=zscan_detect_hydrogel(b,parameter,'');
 
 for icnt=1:num_ch
     ch_name=channel{icnt};
-    b=imflatfield(uint16(stitch.(channel{icnt})),parameter.sigma);     % Bright field
+    %b=imflatfield(uint16(stitch.(ch_name)),parameter.sigma);     % Bright field
+    b=uint16(stitch.(ch_name)); 
+    %edofimg = fstack(mat2cell(b, size(b,1), size(b,2), ones(1,size(b,3))));
     bmedian=double(median(b,'all'));
         [intensity,varience]=frame_measure_intensity_hydrogel(b,hydrogel);
          hydrogel.(ch_name)=intensity;

@@ -10,5 +10,6 @@ data(:,num_of_par(2)-1)=[1:num_of_gels];
 data(:,num_of_par(2))=1; % default value
 marker_names={hdr.par.name};
 channel_names={hdr.par.name};
+%data=double(data);
 fca_writefcs(filename, data, marker_names,channel_names,hdr)
 end
