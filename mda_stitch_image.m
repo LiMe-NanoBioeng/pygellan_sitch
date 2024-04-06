@@ -41,6 +41,7 @@ for i_region=min(pygellan.num_regions):max(pygellan.num_regions)
         double(omeMeta.getPlanePositionX(pre_region,0).value())];
 
     for i_frames=0:num_frames-1
+    %i_frames=0;
         for icnt=0:iz_max-1
             % Initialize the "empty" panorama.
             panorama = zeros([height width], 'like', img);
