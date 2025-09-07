@@ -1,11 +1,11 @@
 function [stitch,pygellan]=import_main(data_path,sigma)
 %clear all
 %import py.pygellan.magellan_data.MagellanDataset
-import py.ndstorage.Dataset
 %import py.ndstorage.NDTiffPyramidDataset
 
 listing=dir(data_path);
 if any(matches({listing.name}, "Full resolution"))
+    import py.ndstorage.Dataset
     %magellan=MagellanDataset(data_path);
     magellan=Dataset(data_path);
     axes=dictionary(magellan.axes);
@@ -49,12 +49,14 @@ if any(matches({listing.name}, "Full resolution"))
             fullfile(data_path,[char(channel{icnt}) '.tiff']));
     end
 else
-    tif=dir(strcat(data_path,'/*.tif'));
-    metadata_file=dir(strcat(data_path,'/*metadata.txt'))
-    region=cellstr(string(regexp(extractBefore({tif.name},'-Pos'),'_([^_]*)$','tokens','once')'));
-    pos=extractBefore(extractAfter({tif.name},'-Pos'),8)';
-    posX=str2double(extractBefore(pos,'_'));
-    posY=str2double(extractAfter(pos,'_'));
+    import py.pycromanager
+
+    tif=dir(strcat(data_path,'/*ome.tif'));
+    %metadata_file=dir(strcat(data_path,'/*metadata.txt'))
+    region=cellstr(string(extractBefore(extractAfter({tif.name},'_Pos-'),'-')'));
+    pos=regexp({tif.name}, '_Pos-\d+-(.*)\.ome\.tif', 'tokens')';
+    posX=str2double(extractBefore(string(pos),'_'));
+    posY=str2double(extractAfter(string(pos),'_'));
     tifinfo=cell2struct([{tif.name}',region,pos,num2cell(posX),num2cell(posY)],...
         {'filename','region','pos','X','Y'},2);
     col=posX;
