@@ -10,6 +10,7 @@ for i_region=min(pygellan.num_regions):max(pygellan.num_regions)
     [index]=find(pygellan.num_regions==i_region);
     col=max(pygellan.col(index))+1;
     row=max(pygellan.row(index))+1;
+    
     pre_region=min(find(pygellan.num_regions==i_region))-1;
 
     iz_max=pygellan.pixZ;
@@ -40,8 +41,8 @@ for i_region=min(pygellan.num_regions):max(pygellan.num_regions)
     pygellan.origin=[double(omeMeta.getPlanePositionY(pre_region,0).value())...
         double(omeMeta.getPlanePositionX(pre_region,0).value())];
 
-    for i_frames=0:num_frames-1
-    %i_frames=0;
+    %for i_frames=0:num_frames-1
+    i_frames=0;
         for icnt=0:iz_max-1
             % Initialize the "empty" panorama.
             panorama = zeros([height width], 'like', img);
@@ -117,7 +118,7 @@ for i_region=min(pygellan.num_regions):max(pygellan.num_regions)
             end
             %pause
         end
-    end
+    %end
     for it=1:num_frames
         for izz=1:iz_max
             if izz==1 && it==1

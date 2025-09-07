@@ -1,31 +1,52 @@
-function [stitch,pygellan]=import_main(data_path,sigma,imagedata)
+function [stitch,pygellan]=import_main(data_path,sigma)
 %clear all
 import py.pygellan.magellan_data.MagellanDataset
+import py.ndstorage.Dataset
+%import py.ndstorage.NDTiffPyramidDataset
 
 listing=dir(data_path);
 if any(matches({listing.name}, "Full resolution"))
-    magellan=MagellanDataset(data_path);
-    num_col_row=cell(magellan.get_num_rows_and_cols());
-    col=int64(num_col_row{2});
-    row=int64(num_col_row{1});
-    num_frames=uint64(magellan.get_num_frames())-1;
-    pix_size=magellan.pixel_size_xy_um();
-    channel_names=cell(magellan.get_channel_names());
+    %magellan=MagellanDataset(data_path);
+    magellan=Dataset(data_path);
+    axes=dictionary(magellan.axes);
+    %num_col_row=cell(magellan.get_num_rows_and_cols());
+    %col=int64(num_col_row{2});
+    col=length(axes('column'));
+    %row=int64(num_col_row{1});
+    row=length(axes('row'));
+    channel_names=axes('channel');
+    num_of_channels=length(axes('channel'));
+    num_of_z=length(axes('z'));
+    num_frames=length('time');
+    %num_frames=uint64(magellan.get_num_frames())-1;
+    %pix_size=magellan.pixel_size_xy_um();
 
-    pygellan.col=col;pygellan.row=row;
+    metadata=dictionary(magellan.summary_metadata);
+    pix_size=cell2mat(metadata('PixelSize_um'));
+    %% register meta data in pygellan
+    pygellan.col=col;pygellan.row=row;pygellan.pixZ=num_of_z;
     pygellan.num_frames=num_frames;pygellan.pix_size=pix_size;
-    pygellan.channels=channel_names;
-    for icnt=1:length(channel_names)
-        channel(icnt)=string(channel_names{icnt});
-    end
+   % pygellan.channels=channel_name;
+    % channel names
+    for icnt=1:length(channel_names);channel(icnt)=string(channel_names{icnt});end
     pygellan.channel=channel;
+ 
+    % [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,...
+    %     channel(1),pygellan,'pygellan');
+    [iz_max]=zscan_find_focal_plane(magellan,...
+        channel(1),pygellan,'pygellan');
+    % [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,...
+    %     channel(1),pygellan,'pygellan');
 
-    [ix,iy,iz,iz_max]=zscan_find_focal_plane(magellan,channel(1),col,row);
-    pygellan.ix=ix;pygellan.iy=iy;pygellan.iz=iz;pygellan.iz_max=iz_max;
+    %pygellan.ix=ix;pygellan.iy=iy;pygellan.iz=iz;
+    pygellan.iz_max=iz_max;
+
     for icnt=1:length(channel_names)
-        [stitch.(channel{icnt}),~]=zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,fullfile(data_path,[char(channel{icnt}) '.tiff']));
-        %[stitch.(extractAfter(channel_names{icnt},'_')),~]=...
-        %    mda_stitch_image(MDA,pygellan,icnt,1,sigma,1,fullfile(data_path,[char(channel_names{icnt}) '.tiff']));
+%        [stitch.(extractAfter(string(channel_names{icnt}),'_')),~]=...
+%            zscan_focused_image(magellan,channel(icnt),1,sigma,col,row,ix,iy,iz,iz_max,num_frames,1,fullfile(data_path,[char(channel{icnt}) '.tiff']));
+        [stitch.(extractAfter(string(channel_names{icnt}),'_')),~]=...
+            zscan_focused_image(magellan,channel(icnt),1,sigma,pygellan,1,...
+            fullfile(data_path,[char(channel{icnt}) '.tiff']));
     end
 else
     tif=dir(strcat(data_path,'/*.tif'));
@@ -76,6 +97,10 @@ else
     pygellan.pix_size=pix_size;
     pygellan.channels=channel_names;
     pygellan.num_regions=cellfun(@str2num, region);
+
+    % [ix,iy,iz,iz_max]=zscan_find_focal_plane(MDA,channel_names(1),...
+    %     pygellan,'MDA');
+
     for icnt=1:length(channel_names)
         [stitch.(extractAfter(channel_names{icnt},'_')),~]=...
             mda_stitch_image(MDA,pygellan,icnt,1,sigma,1,data_path,...
