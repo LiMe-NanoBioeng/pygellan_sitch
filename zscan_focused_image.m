@@ -58,7 +58,7 @@ blender = vision.AlphaBlender('Operation', 'Blend', ...
 
 %
 stitch=uint16(zeros(height,width,zdepth,num_frames+1));
-for i_frames=0:num_frames
+for i_frames=0:num_frames-1
     for icnt=0:zdepth-1
         % Initialize the "empty" panorama.
         panorama = zeros([height width], 'like', img);
@@ -103,7 +103,6 @@ for i_frames=0:num_frames
             title(channel)
             drawnow
         end
-        %pause
     end
 end
 for it=1:num_frames+1

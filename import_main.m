@@ -1,6 +1,6 @@
 function [stitch,pygellan]=import_main(data_path,sigma)
 %clear all
-import py.pygellan.magellan_data.MagellanDataset
+%import py.pygellan.magellan_data.MagellanDataset
 import py.ndstorage.Dataset
 %import py.ndstorage.NDTiffPyramidDataset
 
@@ -17,7 +17,7 @@ if any(matches({listing.name}, "Full resolution"))
     channel_names=axes('channel');
     num_of_channels=length(axes('channel'));
     num_of_z=length(axes('z'));
-    num_frames=length('time');
+    num_frames=length(axes('time'));
     %num_frames=uint64(magellan.get_num_frames())-1;
     %pix_size=magellan.pixel_size_xy_um();
 
@@ -50,6 +50,7 @@ if any(matches({listing.name}, "Full resolution"))
     end
 else
     tif=dir(strcat(data_path,'/*.tif'));
+    metadata_file=dir(strcat(data_path,'/*metadata.txt'))
     region=cellstr(string(regexp(extractBefore({tif.name},'-Pos'),'_([^_]*)$','tokens','once')'));
     pos=extractBefore(extractAfter({tif.name},'-Pos'),8)';
     posX=str2double(extractBefore(pos,'_'));
