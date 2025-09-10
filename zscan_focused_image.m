@@ -57,7 +57,7 @@ blender = vision.AlphaBlender('Operation', 'Blend', ...
     'OpacitySource', 'Input port');   
 
 %
-stitch=uint16(zeros(height,width,zdepth,num_frames+1));
+stitch=uint16(zeros(height,width,zdepth,num_frames));
 for i_frames=0:num_frames-1
     for icnt=0:zdepth-1
         % Initialize the "empty" panorama.
@@ -105,7 +105,7 @@ for i_frames=0:num_frames-1
         end
     end
 end
-for it=1:num_frames+1
+for it=1:num_frames-1
     for izz=1:zdepth %upper+lower
         if izz==1 && it==1
             %im32write(stitch(:,:,izz,it),filename);
